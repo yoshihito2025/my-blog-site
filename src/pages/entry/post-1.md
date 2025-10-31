@@ -21,13 +21,3 @@ Astro の学習についての私の _新しいブログ_ へようこそ！こ�
 ## 次の目標
 
 Astro チュートリアルを終え、さらに記事を追加していきます。これからもこの場所をご覧ください。
-
-```json
-{
-  "name": "Yoshihito",
-  "age": 15,
-  "bloodType": "A",
-  "hobbies": ["programming", "3D Modeling", "Web Design", "Listening to Music"],
-  "dreams": ["Game Developer", "Electrician"]
-}
-```

@@ -1,0 +1,42 @@
+---
+import Layout from "../../layouts/Wrapper.astro";
+const allEntries = Object.values(
+  import.meta.glob("../entry/*.md", { eager: true })
+);
+const tags = [
+  ...new Set(allEntries.map((entry: any) => entry.frontmatter.tags).flat()),
+];
+const pageTitle: string = "タグインデックス";
+---
+
+<Layout pageTitle={pageTitle}>
+  <div class="tags">
+    {
+      tags.map((tag: string) => (
+        <p class="tags__tag">
+          <a href={`/tags/${tag}`}>{tag}</a>
+        </p>
+      ))
+    }
+  </div>
+</Layout>
+
+<style lang="scss">
+  @use "../../styles/mixin" as *;
+  @use "../../styles/function" as *;
+
+  .tags {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    &__tag {
+      @include container-style;
+      margin: 1em;
+      padding: 0.5em 1em;
+      a {
+        text-decoration: none;
+      }
+    }
+  }
+</style>

@@ -1,0 +1,46 @@
+---
+import Layout from "../../layouts/Wrapper.astro";
+import BlogEntry from "../../components/BlogEntry.astro";
+
+// 静的サイト生成
+export async function getStaticPaths() {
+  // 全記事データを読み込む
+  const allEntries = Object.values(
+    import.meta.glob("../entry/*.md", { eager: true })
+  );
+
+  // 重複を避けながらタグを抽出
+  const uniqueTags: string[] = [
+    ...new Set(allEntries.map((entry: any) => entry.frontmatter.tags).flat()),
+  ];
+
+  // タグごとに情報を生成
+  return uniqueTags.map((tag: string) => {
+    const filteredEntries: any[] = allEntries.filter((entry: any) =>
+      entry.frontmatter.tags?.includes(tag)
+    );
+    return {
+      params: { tag },
+      props: { entries: filteredEntries },
+    };
+  });
+}
+
+const { tag } = Astro.params;
+const { entries } = Astro.props;
+---
+
+<Layout pageTitle={tag}>
+  <p>{tag}のタグが付いた記事</p>
+  <ul>
+    {
+      entries.map((entry: any) => (
+        <BlogEntry
+          url={entry.url}
+          title={entry.frontmatter.title}
+          pubDate={entry.frontmatter.pubDate.toString().slice(0, 10)}
+        />
+      ))
+    }
+  </ul>
+</Layout>

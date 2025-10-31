@@ -1,7 +1,7 @@
 ---
 import "../styles/global.scss";
 import Layout from "../layouts/Wrapper.astro";
-import BlogPost from "../components/BlogPost.astro";
+import BlogEntry from "../components/BlogEntry.astro";
 const allEntries = await Astro.glob("../pages/entry/*.md");
 const pageTitle: string = "Blog Page - Yoshihito";
 ---
@@ -11,7 +11,7 @@ const pageTitle: string = "Blog Page - Yoshihito";
   <ul class="main__entry-list">
     {
       allEntries.map((entry) => (
-        <BlogPost
+        <BlogEntry
           title={entry.frontmatter.title}
           url={entry.url}
           pubDate={entry.frontmatter.pubDate.toString().slice(0, 10)}

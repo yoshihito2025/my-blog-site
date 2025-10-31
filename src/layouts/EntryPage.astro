@@ -9,11 +9,41 @@ const { frontmatter } = Astro.props;
     投稿日 : {frontmatter.pubDate.toString().slice(0, 10)}
   </p>
   <div class="main__blog-contents"><slot /></div>
+  <div class="tags">
+    {
+      frontmatter.tags.map((tag: string) => (
+        <p class="tags__tag">
+          <a href={`/tags/${tag}`}>{tag}</a>
+        </p>
+      ))
+    }
+  </div>
 </Layout>
 
 <style lang="scss">
+  @use "sass:map";
+  @use "../styles/mixin" as *;
+  @use "../styles/function" as *;
+
   .main {
     &__blog-title {
+    }
+    &__blog-contents {
+    }
+  }
+
+  .tags {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    &__tag {
+      @include container-style;
+      margin: 1em;
+      padding: 0.5em 1em;
+      a {
+        text-decoration: none;
+      }
     }
   }
 </style>

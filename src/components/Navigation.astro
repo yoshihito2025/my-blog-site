@@ -12,6 +12,7 @@
   <ul class="header__nav__list">
     <li class="header__nav__list__item"><a href="/">Top</a></li>
     <li class="header__nav__list__item"><a href="/blog">Blog</a></li>
+    <li class="header__nav__list__item"><a href="/tags">Tags</a></li>
     <li
       id="copy-the-url-button"
       class="header__nav__list__item header__nav__list__item--copy-the-url-button"
@@ -162,7 +163,7 @@
 
         // レスポンシブ対応
         @include media(small-device) {
-          top: grid-8px(27.5);
+          top: calc(100% + grid-8px(1.5));
         }
         @include media(big-device) {
           top: grid-8px(12);
