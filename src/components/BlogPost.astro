@@ -1,0 +1,64 @@
+---
+const { title, url, pubDate, description } = Astro.props;
+---
+
+<li class="main__entry-list__item">
+  <a class="main__entry-list__item__link" href={url}>
+    <p class="main__entry-list__item__pub-date">Publication date : {pubDate}</p>
+    <p class="main__entry-list__item__title">{title}</p>
+    <p class="main__entry-list__item__description">
+      Description : {description}
+    </p>
+  </a>
+</li>
+
+<style lang="scss">
+  @use "sass:map";
+  @use "../styles/variables" as *;
+  @use "../styles/mixin" as *;
+  @use "../styles/function" as *;
+
+  .main__entry-list__item {
+    &__link {
+      @include pop-easing;
+      @include container-style();
+      box-shadow: none;
+      cursor: pointer;
+      display: block;
+      margin: grid-8px(3);
+      padding: grid-8px(2.5);
+      scale: 1;
+      text-decoration: none;
+
+      // レスポンシブ対応
+      @include media(sp) {
+        margin: grid-8px(1);
+        padding: grid-8px(3);
+      }
+
+      &:hover {
+        box-shadow:
+          0 0 30px 5px
+            color-mix(in srgb, map.get($colors, "third-color"), transparent 50%),
+          0 0 20px 5px
+            color-mix(in srgb, map.get($colors, "third-color"), transparent 50%)
+            inset;
+        scale: 1.05;
+      }
+    }
+    &__title {
+      font-size: map.get($font-sizes, "heading");
+      font-weight: bold;
+      line-height: 2;
+
+      // レスポンシブ対応
+      @include media(sp) {
+        font-size: map.get($font-sizes, "subheading");
+      }
+    }
+    &__pub-date,
+    &__description {
+      color: color-mix(in srgb, var(--text-color), transparent 10%);
+    }
+  }
+</style>

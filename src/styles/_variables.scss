@@ -1,0 +1,31 @@
+@use "sass:map";
+
+// device widths
+$breakpoints: (
+  pc: "(min-width: 768px)",
+  sp: "(max-width: 767px)",
+  small-device: "(max-width: 1204px)",
+  big-device: "(min-width: 1205px)",
+);
+
+$colors: (
+  "black": #050e1a,
+  "white": #e9eff7,
+  "theme-color": #38f,
+  "accent-color": #fa3,
+  "third-color": #f38,
+);
+
+$font-sizes: (
+  "display": 2rem,
+  "heading": 1.5rem,
+  "subheading": 1.25rem,
+  "body": 1rem,
+  "small": 0.875rem,
+);
+
+$container-styles: (
+  "border-radius": 16px,
+  "box-shadow": 0 0 7px
+    color-mix(in srgb, #{map.get($colors, "black")}, transparent 85%),
+);

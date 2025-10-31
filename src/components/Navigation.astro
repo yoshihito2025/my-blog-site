@@ -1,0 +1,299 @@
+---
+
+---
+
+<input type="checkbox" name="menuToggle" id="menuToggle" hidden />
+
+<label for="menuToggle" class="header__hamburger-menu">
+  <div></div>
+</label>
+
+<nav class="header__nav">
+  <ul class="header__nav__list">
+    <li class="header__nav__list__item"><a href="/">Top</a></li>
+    <li class="header__nav__list__item"><a href="/blog">Blog</a></li>
+    <li
+      id="copy-the-url-button"
+      class="header__nav__list__item header__nav__list__item--copy-the-url-button"
+    >
+      Copy the URL
+    </li>
+    <li class="header__nav__list__item">
+      <label
+        for="themeMenuToggle"
+        class="header__nav__list__item--theme-menu-button">color_theme</label
+      >
+    </li>
+  </ul>
+  <input type="checkbox" name="theme-menuToggle" id="themeMenuToggle" hidden />
+  <ul class="header__nav__theme-menu" id="theme-menu">
+    <li class="header__nav__theme-menu__item" data-theme-name="light">light</li>
+    <li class="header__nav__theme-menu__item" data-theme-name="dark">dark</li>
+    <li class="header__nav__theme-menu__item" data-theme-name="system">
+      system
+    </li>
+  </ul>
+</nav>
+
+<style lang="scss">
+  @use "sass:map";
+  @use "../styles/variables" as *;
+  @use "../styles/color-theme" as *;
+  @use "../styles/function" as *;
+  @use "../styles/mixin" as *;
+
+  .header {
+    // ハンバーガーメニュー
+    &__hamburger-menu {
+      cursor: pointer;
+      position: relative;
+      @include media(big-device) {
+        display: none;
+      }
+      div,
+      &::before,
+      &::after {
+        @include pop-easing;
+        background-color: var(--text-color);
+        display: block;
+        height: 3px;
+        width: 25px;
+      }
+      div {
+        position: relative;
+      }
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+      }
+      &::before {
+        bottom: 8px;
+      }
+      &::after {
+        top: 8px;
+      }
+    }
+
+    #menuToggle:checked + &__hamburger-menu {
+      div {
+        scale: 0 1;
+      }
+      &::before {
+        rotate: 45deg;
+        bottom: 0;
+      }
+      &::after {
+        rotate: -45deg;
+        top: 0;
+      }
+    }
+
+    // ナビゲーション
+    &__nav {
+      // SP
+      @include media(small-device) {
+        @include container-style();
+        background-color: var(--header__nav-bg-color);
+        position: absolute;
+        right: 0;
+        text-align: center;
+        top: grid-8px(9);
+        width: 130px;
+      }
+      &__list {
+        list-style: none;
+
+        // レスポンシブ対応
+        @include media(small-device) {
+          display: block;
+        }
+        @include media(big-device) {
+          display: flex;
+        }
+
+        // リストアイテム
+        &__item {
+          &:active {
+            animation: 0.2s clicked-list-item ease;
+          }
+
+          // レスポンシブ対応
+          @include media(small-device) {
+            padding-block: grid-8px(2);
+            &:not(:last-child) {
+              border-bottom: 1px solid var(--container-border-color);
+            }
+          }
+          @include media(big-device) {
+            padding-inline: grid-8px(1.5);
+            line-height: 1.5;
+            &:not(:last-child) {
+              border-right: 2px solid var(--container-border-color);
+            }
+          }
+
+          // カラーテーマを変更するボタン
+          &--theme-menu-button {
+            color: var(--link-color);
+            cursor: pointer;
+          }
+          a {
+            text-decoration: none;
+          }
+          &--copy-the-url-button {
+            cursor: pointer;
+          }
+        }
+      }
+
+      // カラーテーマ変更UI
+      &__theme-menu {
+        @include container-style();
+        @include pop-easing;
+        background-color: var(--header__nav-bg-color);
+        list-style: none;
+        opacity: 0.5;
+        position: absolute;
+        scale: 1 0;
+        text-align: center;
+        transform-origin: top;
+        width: 130px;
+
+        // レスポンシブ対応
+        @include media(small-device) {
+          top: grid-8px(27.5);
+        }
+        @include media(big-device) {
+          top: grid-8px(12);
+          right: 0;
+        }
+
+        &__item {
+          cursor: pointer;
+          padding-block: grid-8px(2);
+          &:not(:last-child) {
+            border-bottom: 1px solid var(--container-border-color);
+          }
+        }
+        .selected {
+          color: var(--link-color);
+        }
+      }
+      #themeMenuToggle:checked ~ &__theme-menu {
+        opacity: 1;
+        scale: 1;
+      }
+    }
+
+    @include media(small-device) {
+      &__nav {
+        @include pop-easing;
+        opacity: 0.5;
+        scale: 1 0;
+        transform-origin: top;
+      }
+      #menuToggle:checked ~ &__nav {
+        scale: 1;
+        opacity: 1;
+      }
+    }
+  }
+
+  // アニメーション
+  @keyframes clicked-list-item {
+    0% {
+      color: var(--text-color);
+    }
+    50% {
+      color: var(--link-color);
+    }
+    100% {
+      color: var(--text-color);
+    }
+  }
+</style>
+
+<script>
+  // ナビゲーションのUIを定義
+  const menuToggle = document.getElementById("menuToggle") as HTMLInputElement;
+  const themeMenuToggle = document.getElementById(
+    "themeMenuToggle"
+  ) as HTMLInputElement;
+  const themeMenuList =
+    document.querySelectorAll<HTMLElement>("#theme-menu li");
+  const rootElem: HTMLElement = document.documentElement;
+
+  // URLコピーのボタン
+  const copyTheURLButton = document.getElementById(
+    "copy-the-url-button"
+  ) as HTMLElement;
+
+  // カラーテーマの選択肢のsystemを選択済みのスタイルにする
+  for (const element of themeMenuList) {
+    if (element.dataset.themeName === "system") {
+      element.classList.add("selected");
+    }
+  }
+
+  // カラーテーマを条件に当てはめる
+  themeMenuList.forEach((item) => {
+    item.addEventListener("click", (event: Event) => {
+      // 選択肢の色をリセット
+      for (const element of themeMenuList) {
+        element.classList.remove("selected");
+      }
+
+      const li = event.currentTarget as HTMLElement;
+      const themeName = li.dataset.themeName ?? "system";
+
+      li.classList.add("selected");
+
+      switch (themeName) {
+        case "light":
+          rootElem.dataset.theme = "light";
+          break;
+        case "dark":
+          rootElem.dataset.theme = "dark";
+          break;
+        default:
+          rootElem.dataset.theme = "system";
+      }
+      console.log(rootElem.dataset.theme);
+      // メニューを閉じる
+      if (themeMenuToggle) {
+        themeMenuToggle.checked = false;
+      }
+      if (menuToggle) {
+        menuToggle.checked = false;
+      }
+    });
+  });
+
+  // ハンバーガーメニューが開かれていないときの処理
+  menuToggle?.addEventListener("change", (event: Event) => {
+    if (menuToggle.checked == false) {
+      if (themeMenuToggle) {
+        themeMenuToggle.checked = false;
+      }
+    }
+  });
+
+  // URLをコピーする
+  copyTheURLButton?.addEventListener("click", () => {
+    navigator.clipboard
+      .writeText(location.href)
+      .then(() => {
+        copyTheURLButton.textContent = "SUCCESSFUL!";
+        setTimeout(function () {
+          copyTheURLButton.textContent = "Copy the URL";
+        }, 1000);
+      })
+      .catch((err: unknown) => {
+        copyTheURLButton.textContent = "FAILED!";
+        setTimeout(function () {
+          copyTheURLButton.textContent = "Copy the URL";
+        }, 1000);
+      });
+  });
+</script>

@@ -1,0 +1,42 @@
+@use "sass:map";
+@use "./variables" as *;
+
+@mixin light-theme {
+  --text-color: #{map.get($colors, "black")};
+  --bg-color: #{map.get($colors, "white")};
+  --link-color: #{map.get($colors, "theme-color")};
+  --container-bg-color: #{color-mix(
+      in srgb,
+      transparent,
+      #{map.get($colors, "white")} 3%
+    )};
+  --container-border-color: #{color-mix(
+      in srgb,
+      #{map.get($colors, "black")},
+      transparent 80%
+    )};
+  --header__nav-bg-color: #{map.get($colors, "white")};
+  --border-left-color: #{map.get($colors, "third-color")};
+}
+
+@mixin dark-theme {
+  --text-color: #{map.get($colors, "white")};
+  --bg-color: #{map.get($colors, "black")};
+  --link-color: #{map.get($colors, "accent-color")};
+  --container-bg-color: #{color-mix(
+      in srgb,
+      transparent,
+      #{map.get($colors, "white")} 3%
+    )};
+  --container-border-color: #{color-mix(
+      in srgb,
+      #{map.get($colors, "white")},
+      transparent 80%
+    )};
+  --header__nav-bg-color: #{color-mix(
+      in srgb,
+      #{map.get($colors, "black")},
+      #{map.get($colors, "white")} 3%
+    )};
+  --border-left-color: #{map.get($colors, "theme-color")};
+}

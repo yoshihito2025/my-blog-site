@@ -1,0 +1,104 @@
+@use "./reset.css";
+@use "sass:map";
+@use "./variables" as *;
+@use "./color-theme" as *;
+@use "./mixin" as *;
+@use "./function" as *;
+
+[data-theme="light"] {
+  @include light-theme;
+}
+
+[data-theme="dark"] {
+  @include dark-theme;
+}
+
+[data-theme="system"] {
+  @media (prefers-color-scheme: light) {
+    @include light-theme;
+  }
+  @media (prefers-color-scheme: dark) {
+    @include dark-theme;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  color: var(--text-color);
+  font-family: helvetica, sans-serif;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  transition: color 0.5s, background-color 0.5s;
+}
+
+html {
+  display: grid;
+  scrollbar-color: color-mix(in srgb, var(--text-color), transparent 50%)
+    transparent;
+
+  // レスポンシブ対応
+  @include media(pc) {
+    grid-template-columns: 1fr 2fr 1fr;
+  }
+  @include media(sp) {
+    grid-template-columns: 1fr 8fr 1fr;
+  }
+}
+
+body {
+  background-color: var(--bg-color);
+  grid-column: 2;
+}
+
+h1 {
+  font-size: map.get($font-sizes, "display");
+  line-height: 1.5;
+}
+h2 {
+  font-size: map.get($font-sizes, "heading");
+}
+h3 {
+  font-size: map.get($font-sizes, "subheading");
+}
+p,
+a,
+li,
+pre code span {
+  font-size: map.get($font-sizes, "body");
+}
+small {
+  font-size: map.get($font-sizes, "small");
+}
+// リンクの装飾
+a {
+  text-decoration: underline;
+}
+// コードの表示
+pre code span {
+  font-family: Consolas, Courier, monospace;
+  line-height: 1.2;
+}
+
+hr {
+  background-color: color-mix(in srgb, var(--text-color), transparent 70%);
+  border: none;
+  height: 1px;
+  margin-block: grid-8px(8);
+}
+
+header {
+  z-index: 2;
+}
+
+main {
+  min-height: 100px;
+  padding-block: grid-8px(3);
+  z-index: 1;
+}
+
+footer {
+  z-index: 2;
+}

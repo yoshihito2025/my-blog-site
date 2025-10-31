@@ -1,0 +1,19 @@
+---
+import Layout from "./Wrapper.astro";
+const { frontmatter } = Astro.props;
+---
+
+<Layout pageTitle={`${frontmatter.title} - Yoshihito`}>
+  <h1 class="main__blog-title">{frontmatter.title}</h1>
+  <p class="main__blog-pub-date">
+    投稿日 : {frontmatter.pubDate.toString().slice(0, 10)}
+  </p>
+  <div class="main__blog-contents"><slot /></div>
+</Layout>
+
+<style lang="scss">
+  .main {
+    &__blog-title {
+    }
+  }
+</style>

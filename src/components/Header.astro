@@ -1,0 +1,56 @@
+---
+import Navigation from "./Navigation.astro";
+---
+
+<header class="header">
+  <div class="header__logo">
+    <img src="/logo/icon.svg" alt="icon" class="header__logo--icon" />
+    <img src="/logo/title.svg" alt="title" class="header__logo--title" />
+  </div>
+  <Navigation />
+</header>
+
+<style lang="scss">
+  @use "sass:map";
+  @use "../styles/variables" as *;
+  @use "../styles/color-theme" as *;
+  @use "../styles/function" as *;
+  @use "../styles/mixin" as *;
+
+  .header {
+    @include container-style();
+    align-items: center;
+    background-color: var(--container-bg-color);
+    border: 1px solid var(--container-border-color);
+    border-radius: map.get($container-styles, "border-radius");
+    display: flex;
+    height: 80px;
+    justify-content: space-between;
+    margin-block: 0 grid-8px(5);
+    padding: grid-8px(1.5) grid-8px(2);
+    position: sticky;
+    top: grid-8px(2);
+    width: auto;
+    // SP
+    @include media(small-device) {
+      height: 60px;
+      padding: grid-8px(1);
+    }
+    .header__logo {
+      display: flex;
+      align-items: center;
+      gap: grid-8px(1);
+      .header__logo--icon {
+        height: 40px;
+        width: auto;
+        @include media(sp) {
+          height: 35px;
+        }
+      }
+      .header__logo--title {
+        height: 30px;
+        width: auto;
+      }
+    }
+  }
+</style>

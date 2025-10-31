@@ -1,16 +1,160 @@
 ---
+import { Code } from "astro:components";
+import "../styles/global.scss";
+import Layout from "../layouts/Wrapper.astro";
 
+const pageTitle = "Top Page - Yoshihito";
+const aboutmeCode = `{
+  "name": "Yoshihito",
+  "age": 15,
+  "bloodType": "A",
+  "hobbies": ["Programming", "3D modeling", "Web design", "Listening to music"],
+  "dreams": ["Game developer", "Electrician"]
+}`;
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout pageTitle={pageTitle}>
+  <h1 class="main__title">
+    Welcome to <span class="yoshihito">Yoshihito's</span> blog site.
+  </h1>
+  <hr />
+  <div class="main__container">
+    <div class="main__container__card main__container__card--about-me">
+      <h2>👤About me</h2>
+      <Code code={aboutmeCode} lang="json" class="code" theme="tokyo-night" />
+    </div>
+    <div class="main__container__card">
+      <h2>🛠️Skills</h2>
+      <h3>HTML / CSS</h3>
+      <p>
+        grid, flexレイアウトやCSS変数を使った簡単なwebサイトを作れるレベルです。
+      </p>
+      <h3>JavaScript, C++</h3>
+      <p>オブジェクト指向を勉強しています。</p>
+      <h3>C 言語</h3>
+      <p>ポインタはある程度理解したつもりです。</p>
+    </div>
+    <div class="main__container__card main__container__card--project">
+      <h2>🗄️Projects</h2>
+      <a
+        href="https://github.com/yoshihito2025/click-game"
+        target="_blank"
+        class="main__container__card--project-name"
+      >
+        <h3>Click Game</h3>
+      </a>
+      <p>Web技術でクリックゲームを作りました。</p>
+      <a
+        href="https://github.com/yoshihito2025"
+        target="_blank"
+        class="project-name"
+      >
+        <h3>Realtime Chat App</h3>
+      </a>
+      <p>
+        <a href="https://github.com/Shin-sibainu">Shin-sibainu</a
+        >さんのチュートリアルを見ながら作りました。
+      </p>
+    </div>
+    <div class="main__container__card main__container__card--sitemap">
+      <h2>📂Sitemap</h2>
+      <ul class="directory">
+        <li><a href="/">TOP_PAGE (./)</a></li>
+        <li><a href="/blog">MY_BLOG (./blog)</a></li>
+      </ul>
+    </div>
+  </div>
+</Layout>
+
+<style lang="scss">
+  @use "sass:map";
+  @use "../styles/variables" as *;
+  @use "../styles/mixin" as *;
+  @use "../styles/function" as *;
+
+  .main {
+    // タイトル
+    &__title {
+      font-size: calc(map.get($font-sizes, "display") * 0.9);
+      text-align: center;
+      @include media(sp) {
+        border-left: 3px solid map.get($colors, "third-color");
+        padding-left: 10px;
+        text-align: left;
+      }
+      .yoshihito {
+        color: map.get($colors, "third-color");
+        text-shadow: 0 0 30px
+          color-mix(in srgb, map.get($colors, "third-color"), transparent 30%);
+      }
+    }
+    // カードのコンテナ
+    &__container {
+      align-items: start;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 50px;
+      justify-content: center;
+
+      // カードのスタイル
+      &__card {
+        @include container-style();
+        height: 365px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding: grid-8px(3) grid-8px(5);
+        width: 300px;
+
+        // カードの見出し
+        h2 {
+          border-left: 10px solid var(--border-left-color);
+          color: var(--link-color);
+          margin-bottom: map.get($font-sizes, "heading");
+          padding-left: grid-8px(1);
+        }
+
+        // 見出しの上下の余白
+        h3,
+        p:has(+ h3),
+        p:has(+ .project-name) {
+          margin-bottom: map.get($font-sizes, "subheading");
+        }
+
+        // About me のスタイル
+        &--about-me .code {
+          border-radius: calc(map.get($container-styles, "border-radius") / 2);
+          padding: grid-8px(2);
+        }
+
+        // Project のスタイル
+        &--project {
+          .main__container__card--project-name {
+            text-decoration: none;
+            h3 {
+              border-left: 3px solid var(--border-left-color);
+              padding-left: grid-8px(1);
+            }
+          }
+        }
+
+        // Sitemap のスタイル
+        &--sitemap {
+          .directory {
+            list-style: none;
+            li {
+              &::before {
+                content: "-";
+                line-height: 2;
+                margin-right: 1rem;
+              }
+            }
+            li,
+            li a {
+              font-family: Consolas, Courier, monospace;
+            }
+          }
+        }
+      }
+    }
+  }
+</style>

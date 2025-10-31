@@ -1,0 +1,34 @@
+---
+import "../styles/global.scss";
+import Layout from "../layouts/Wrapper.astro";
+import BlogPost from "../components/BlogPost.astro";
+const allEntries = await Astro.glob("../pages/entry/*.md");
+const pageTitle: string = "Blog Page - Yoshihito";
+---
+
+<Layout pageTitle={pageTitle}>
+  <h1 class="main__title">Blog Page</h1>
+  <ul class="main__entry-list">
+    {
+      allEntries.map((entry) => (
+        <BlogPost
+          title={entry.frontmatter.title}
+          url={entry.url}
+          pubDate={entry.frontmatter.pubDate.toString().slice(0, 10)}
+          description={entry.frontmatter.description}
+        />
+      ))
+    }
+  </ul>
+</Layout>
+
+<style lang="scss">
+  @use "sass:map";
+  @use "../styles/variables" as *;
+
+  .main {
+    &__title {
+      margin-bottom: map.get($font-sizes, "display");
+    }
+  }
+</style>
