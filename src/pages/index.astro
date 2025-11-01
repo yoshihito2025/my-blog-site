@@ -11,6 +11,21 @@ const aboutmeCode = `{
   "hobbies": ["Programming", "3D modeling", "Web design", "Listening to music"],
   "dreams": ["Game developer", "Electrician"]
 }`;
+
+const sitemapList = [
+  {
+    href: "/",
+    text: "TOP_PAGE",
+  },
+  {
+    href: "/blog",
+    text: "MY_BLOG",
+  },
+  {
+    href: "/tags",
+    text: "TAGS_PAGE",
+  },
+];
 ---
 
 <Layout pageTitle={pageTitle}>
@@ -60,8 +75,15 @@ const aboutmeCode = `{
     <div class="main__container__card main__container__card--sitemap">
       <h2>📂Sitemap</h2>
       <ul class="directory">
-        <li><a href="/">TOP_PAGE (./)</a></li>
-        <li><a href="/blog">MY_BLOG (./blog)</a></li>
+        {
+          sitemapList.map((item) => (
+            <li>
+              <a href={item.href}>
+                {item.text} (.{item.href})
+              </a>
+            </li>
+          ))
+        }
       </ul>
     </div>
   </div>
