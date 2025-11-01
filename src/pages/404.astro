@@ -8,3 +8,15 @@ const pageTitle: string = "Not Found - Yoshihito";
 <Layout pageTitle={pageTitle}>
   <h1>404 Page Not Found.</h1>
 </Layout>
+
+<style lang="scss">
+  @use "../styles/mixin" as *;
+  @use "../styles/function" as *;
+
+  h1 {
+    margin-block: grid-8px(5) grid-8px(8);
+    @include media(pc) {
+      text-align: center;
+    }
+  }
+</style>

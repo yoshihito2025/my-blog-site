@@ -11,7 +11,7 @@
 }
 
 @mixin media($device) {
-  @media #{map.get($breakpoints, $device)} {
+  @media #{map.get($devices, $device)} {
     @content;
   }
 }

@@ -1,7 +1,7 @@
 @use "sass:map";
 
 // device widths
-$breakpoints: (
+$devices: (
   pc: "(min-width: 768px)",
   sp: "(max-width: 767px)",
   small-device: "(max-width: 1369px)",

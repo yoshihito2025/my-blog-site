@@ -16,11 +16,13 @@ const { pageTitle } = Astro.props;
     <title>{pageTitle}</title>
   </head>
   <body>
-    <Header />
-    <main class="main">
-      <slot />
-      <SocialLink />
-    </main>
-    <Footer />
+    <div class="layout">
+      <Header />
+      <main class="main">
+        <slot />
+        <SocialLink />
+      </main>
+      <Footer />
+    </div>
   </body>
 </html>

@@ -19,6 +19,7 @@ const { title, url, pubDate, description } = Astro.props;
   @use "../styles/function" as *;
 
   .main__entry-list__item {
+    // ブロックの中身
     &__link {
       @include pop-easing;
       @include container-style();
@@ -32,8 +33,14 @@ const { title, url, pubDate, description } = Astro.props;
 
       // レスポンシブ対応
       @include media(sp) {
-        margin: grid-8px(1);
+        margin: grid-8px(5) grid-8px(1);
         padding: grid-8px(3);
+        box-shadow:
+          0 0 10px 3px
+            color-mix(in srgb, map.get($colors, "third-color"), transparent 30%),
+          0 0 10px 3px
+            color-mix(in srgb, map.get($colors, "third-color"), transparent 50%)
+            inset;
       }
 
       &:hover {
@@ -54,6 +61,7 @@ const { title, url, pubDate, description } = Astro.props;
       // レスポンシブ対応
       @include media(sp) {
         font-size: map.get($font-sizes, "subheading");
+        margin-block: 0.5em;
       }
     }
     &__pub-date,

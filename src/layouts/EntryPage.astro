@@ -4,11 +4,14 @@ const { frontmatter } = Astro.props;
 ---
 
 <Layout pageTitle={`${frontmatter.title} - Yoshihito`}>
-  <h1 class="main__blog-title">{frontmatter.title}</h1>
-  <p class="main__blog-pub-date">
-    投稿日 : {frontmatter.pubDate.toString().slice(0, 10)}
+  <p class="main__entry-pub-date">
+    pub date : {frontmatter.pubDate.toString().slice(0, 10)}
   </p>
-  <div class="main__blog-contents"><slot /></div>
+  <h1 class="main__entry-title">{frontmatter.title}</h1>
+  <hr />
+  <div class="entry-contents">
+    <slot />
+  </div>
   <div class="tags">
     {
       frontmatter.tags.map((tag: string) => (
@@ -20,23 +23,64 @@ const { frontmatter } = Astro.props;
   </div>
 </Layout>
 
-<style lang="scss">
+<style lang="scss" is:global>
   @use "sass:map";
+  @use "../styles/variables" as *;
+  @use "../styles/color-theme" as *;
   @use "../styles/mixin" as *;
   @use "../styles/function" as *;
 
   .main {
-    &__blog-title {
+    &__entry-pub-date {
+      font-size: calc(map.get($font-sizes, "body") * 1.1);
+      color: color-mix(in srgb, var(--text-color), transparent 20%);
     }
-    &__blog-contents {
+    &__entry-title {
+      margin-block: 1em;
+      @include media(sp) {
+        padding-inline: grid-8px(1);
+      }
     }
   }
 
+  .entry-contents {
+    @include media(pc) {
+      padding-inline: grid-8px(2);
+    }
+    h2 {
+      margin-block: 1em;
+    }
+    p {
+      line-height: 1.8;
+    }
+    ul,
+    ol {
+      padding-left: 1.5em;
+    }
+    ul {
+      list-style: disc;
+    }
+    pre {
+      border-radius: calc(map.get($container-styles, "border-radius") / 2);
+      display: block;
+      margin-block: grid-8px(5);
+      margin-inline: auto;
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: grid-8px(2);
+      white-space: pre;
+      word-wrap: normal;
+    }
+  }
+
+  // タグのスタイル
   .tags {
     align-items: center;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    padding-block: grid-8px(10);
     &__tag {
       @include container-style;
       margin: 1em;

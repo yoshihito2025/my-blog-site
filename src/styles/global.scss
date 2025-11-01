@@ -34,11 +34,14 @@
   transition: color 0.5s, background-color 0.5s;
 }
 
+body {
+  overflow-x: hidden;
+  overflow-y: visible;
+  width: 100%;
+}
+
 html {
-  background-color: var(--bg-color);
   display: grid;
-  scrollbar-color: color-mix(in srgb, var(--text-color), transparent 50%)
-    transparent;
 
   // レスポンシブ対応
   @include media(pc) {
@@ -47,10 +50,17 @@ html {
   @include media(sp) {
     grid-template-columns: 1fr 8fr 1fr;
   }
+  background-color: var(--bg-color);
+  scrollbar-color: color-mix(in srgb, var(--text-color), transparent 50%)
+    transparent;
 }
 
 body {
   grid-column: 2;
+}
+
+.layout {
+  width: 100%;
 }
 
 h1 {
@@ -77,9 +87,10 @@ a {
   text-decoration: underline;
 }
 // コードの表示
-pre code span {
+pre code span,
+.monospace {
   font-family: Consolas, Courier, monospace;
-  line-height: 1.2;
+  line-height: 1.5;
 }
 
 hr {

@@ -21,6 +21,7 @@ const aboutmeCode = `{
   <div class="main__container">
     <div class="main__container__card main__container__card--about-me">
       <h2>👤About me</h2>
+      <p class="monospace">about-me.json</p>
       <Code code={aboutmeCode} lang="json" class="code" theme="tokyo-night" />
     </div>
     <div class="main__container__card">
@@ -121,9 +122,16 @@ const aboutmeCode = `{
         }
 
         // About me のスタイル
-        &--about-me .code {
-          border-radius: calc(map.get($container-styles, "border-radius") / 2);
-          padding: grid-8px(2);
+        &--about-me {
+          .monospace {
+            margin-block: 1em;
+          }
+          .code {
+            border-radius: calc(
+              map.get($container-styles, "border-radius") / 2
+            );
+            padding: grid-8px(2);
+          }
         }
 
         // Project のスタイル
