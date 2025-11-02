@@ -33,6 +33,7 @@ const sitemapList = [
     Welcome to <span class="yoshihito">Yoshihito's</span> blog site.
   </h1>
   <hr />
+  <!-- カードコンテナ -->
   <div class="main__container">
     <div class="main__container__card main__container__card--about-me">
       <h2>👤About me</h2>
@@ -63,7 +64,7 @@ const sitemapList = [
       <a
         href="https://github.com/yoshihito2025"
         target="_blank"
-        class="project-name"
+        class="main__container__card--project-name"
       >
         <h3>Realtime Chat App</h3>
       </a>
@@ -78,7 +79,7 @@ const sitemapList = [
         {
           sitemapList.map((item) => (
             <li>
-              <a href={item.href}>
+              <a href={item.href} target="_blank">
                 {item.text} (.{item.href})
               </a>
             </li>
@@ -86,105 +87,128 @@ const sitemapList = [
         }
       </ul>
     </div>
+    <div class="main__container__card">
+      <h2>About this site</h2>
+      <p>
+        読み込みスピードを速くするために Astro
+        で作りました。また、効率的にデザインを組むために Sass を使いました。
+      </p>
+    </div>
   </div>
-</Layout>
 
-<style lang="scss">
-  @use "sass:map";
-  @use "../styles/variables" as *;
-  @use "../styles/mixin" as *;
-  @use "../styles/function" as *;
+  <style lang="scss">
+    @use "sass:map";
+    @use "../styles/variables" as *;
+    @use "../styles/mixin" as *;
+    @use "../styles/function" as *;
 
-  .main {
-    // タイトル
-    &__title {
-      font-size: calc(map.get($font-sizes, "display") * 0.9);
-      text-align: center;
-      @include media(sp) {
-        border-left: 3px solid map.get($colors, "third-color");
-        padding-left: 10px;
-        text-align: left;
+    .main {
+      // タイトル
+      &__title {
+        font-size: calc(map.get($font-sizes, "display") * 0.9);
+        text-align: center;
+        @include media-max(sm) {
+          border-left: 3px solid map.get($colors, "third-color");
+          padding-left: 10px;
+          text-align: left;
+        }
+        .yoshihito {
+          color: map.get($colors, "third-color");
+          text-shadow: 0 0 30px
+            color-mix(in srgb, map.get($colors, "third-color"), transparent 30%);
+        }
       }
-      .yoshihito {
-        color: map.get($colors, "third-color");
-        text-shadow: 0 0 30px
-          color-mix(in srgb, map.get($colors, "third-color"), transparent 30%);
-      }
-    }
-    // カードのコンテナ
-    &__container {
-      align-items: start;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 50px;
-      justify-content: center;
+      // カードのコンテナ
+      &__container {
+        align-items: start;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 50px;
+        justify-content: center;
 
-      // カードのスタイル
-      &__card {
-        @include container-style();
-        height: 365px;
-        overflow-x: hidden;
-        overflow-y: auto;
-        padding: grid-8px(3) grid-8px(5);
-        width: 300px;
+        // カードのスタイル
+        &__card {
+          @include container-style();
+          height: 365px;
+          overflow-x: hidden;
+          overflow-y: auto;
+          padding: grid-8px(3) grid-8px(5);
+          transition: 0.5s ease-out;
+          width: 300px;
 
-        // カードの見出し
-        h2 {
-          border-left: 10px solid var(--border-left-color);
-          color: var(--link-color);
-          margin-bottom: map.get($font-sizes, "heading");
-          padding-left: grid-8px(1);
-        }
-
-        // 見出しの上下の余白
-        h3,
-        p:has(+ h3),
-        p:has(+ .project-name) {
-          margin-bottom: map.get($font-sizes, "subheading");
-        }
-
-        // About me のスタイル
-        &--about-me {
-          .monospace {
-            margin-block: 1em;
+          &:hover {
+            box-shadow: 0 0 20px 3px
+              color-mix(
+                in srgb,
+                map.get($colors, "theme-color"),
+                transparent 10%
+              )
+              inset;
           }
-          .code {
-            border-radius: calc(
-              map.get($container-styles, "border-radius") / 2
-            );
-            padding: grid-8px(2);
-          }
-        }
 
-        // Project のスタイル
-        &--project {
-          .main__container__card--project-name {
-            text-decoration: none;
-            h3 {
-              border-left: 3px solid var(--border-left-color);
-              padding-left: grid-8px(1);
+          // カードの見出し
+          h2 {
+            border-left: 10px solid var(--border-left-color);
+            color: var(--link-color);
+            margin-bottom: map.get($font-sizes, "heading");
+            padding-left: grid-8px(1);
+          }
+
+          // 見出しの上下の余白
+          h3,
+          p:has(+ h3),
+          p:has(+ .project-name) {
+            margin-bottom: map.get($font-sizes, "subheading");
+          }
+
+          p {
+            line-height: 1.8;
+          }
+
+          // About me のスタイル
+          &--about-me {
+            .monospace {
+              @include monospace-font();
+              margin-block: 1em;
+            }
+            .code {
+              border-radius: calc(
+                map.get($container-styles, "border-radius") / 2
+              );
+              padding: grid-8px(2);
             }
           }
-        }
 
-        // Sitemap のスタイル
-        &--sitemap {
-          .directory {
-            list-style: none;
-            li {
-              &::before {
-                content: "-";
-                line-height: 2;
-                margin-right: 1rem;
+          // Project のスタイル
+          &--project {
+            &-name {
+              h3 {
+                margin-block: 1em;
+                border-left: 3px solid var(--border-left-color);
+                padding-left: grid-8px(1);
               }
             }
-            li,
-            li a {
-              font-family: Consolas, Courier, monospace;
+          }
+
+          // Sitemap のスタイル
+          &--sitemap {
+            .directory {
+              list-style: none;
+              li {
+                &::before {
+                  content: "-";
+                  line-height: 2;
+                  margin-right: 1rem;
+                }
+              }
+              li,
+              li a {
+                @include monospace-font();
+              }
             }
           }
         }
       }
     }
-  }
-</style>
+  </style>
+</Layout>

@@ -48,7 +48,7 @@
     &__hamburger-menu {
       cursor: pointer;
       position: relative;
-      @include media(big-device) {
+      @include media-min(md) {
         display: none;
       }
       div,
@@ -93,7 +93,7 @@
     // ナビゲーション
     &__nav {
       // SP
-      @include media(small-device) {
+      @include media-max(md) {
         @include container-style();
         background-color: var(--header__nav-bg-color);
         position: absolute;
@@ -106,10 +106,10 @@
         list-style: none;
 
         // レスポンシブ対応
-        @include media(small-device) {
+        @include media-max(md) {
           display: block;
         }
-        @include media(big-device) {
+        @include media-min(md) {
           display: flex;
         }
 
@@ -120,13 +120,13 @@
           }
 
           // レスポンシブ対応
-          @include media(small-device) {
+          @include media-max(md) {
             padding-block: grid-8px(2);
             &:not(:last-child) {
               border-bottom: 1px solid var(--container-border-color);
             }
           }
-          @include media(big-device) {
+          @include media-min(md) {
             padding-inline: grid-8px(1.5);
             line-height: 1.5;
             &:not(:last-child) {
@@ -162,10 +162,10 @@
         width: 130px;
 
         // レスポンシブ対応
-        @include media(small-device) {
+        @include media-max(md) {
           top: calc(100% + grid-8px(1.5));
         }
-        @include media(big-device) {
+        @include media-min(md) {
           top: grid-8px(12);
           right: 0;
         }
@@ -187,7 +187,8 @@
       }
     }
 
-    @include media(small-device) {
+    // ナビゲーション
+    @include media-max(md) {
       &__nav {
         @include pop-easing;
         opacity: 0.5;

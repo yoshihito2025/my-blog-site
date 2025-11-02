@@ -31,22 +31,32 @@ const { frontmatter } = Astro.props;
   @use "../styles/function" as *;
 
   .main {
+    @include media-min(sm) {
+      padding-inline: 15%;
+    }
+    @include media-max(sm) {
+      padding-inline: 2.5%;
+    }
     &__entry-pub-date {
       font-size: calc(map.get($font-sizes, "body") * 1.1);
       color: color-mix(in srgb, var(--text-color), transparent 20%);
     }
     &__entry-title {
       margin-block: 1em;
-      @include media(sp) {
+      @include media-max(sm) {
         padding-inline: grid-8px(1);
       }
     }
   }
 
   .entry-contents {
-    @include media(pc) {
-      padding-inline: grid-8px(2);
+    h2,
+    h3,
+    h4,
+    p {
+      margin-block: 1em;
     }
+
     h2 {
       margin-block: 1em;
     }

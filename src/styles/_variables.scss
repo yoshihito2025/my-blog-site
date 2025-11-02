@@ -1,11 +1,17 @@
 @use "sass:map";
 
+// animation
+$pop-ease: cubic-bezier(0.903, -0.637, 0.216, 1.643);
+
 // device widths
-$devices: (
-  pc: "(min-width: 768px)",
-  sp: "(max-width: 767px)",
-  small-device: "(max-width: 1369px)",
-  big-device: "(min-width: 1370px)",
+$breakpoints: (
+  // sp
+  xs: 480px,
+  // TAB
+  sm: 768px,
+  md: 1024px,
+  lg: 1280px,
+  xl: 1440px
 );
 
 $colors: (

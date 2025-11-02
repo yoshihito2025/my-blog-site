@@ -10,13 +10,31 @@
   border-radius: map.get($container-styles, "border-radius");
 }
 
-@mixin media($device) {
-  @media #{map.get($devices, $device)} {
-    @content;
+@mixin media-max($device) {
+  @if map.has-key($breakpoints, $device) {
+    @media (max-width: #{map.get($breakpoints, $device)}) {
+      @content;
+    }
+  } @else {
+    @warn "無効な値: #{$device}";
+  }
+}
+
+@mixin media-min($device) {
+  @if map.has-key($breakpoints, $device) {
+    @media (min-width: #{map.get($breakpoints, $device)}) {
+      @content;
+    }
+  } @else {
+    @warn "無効な値: #{$device}";
   }
 }
 
 @mixin pop-easing() {
   transition: all 0.5s;
-  transition-timing-function: cubic-bezier(0.903, -0.637, 0.216, 1.643);
+  transition-timing-function: $pop-ease;
+}
+
+@mixin monospace-font() {
+  font-family: Consolas, "Courier New", Courier, "Lucida Console", monospace;
 }

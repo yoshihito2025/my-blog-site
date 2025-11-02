@@ -26,31 +26,40 @@ const { title, url, pubDate, description } = Astro.props;
       box-shadow: none;
       cursor: pointer;
       display: block;
-      margin: grid-8px(3);
+      margin: grid-8px(5) grid-8px(3);
       padding: grid-8px(2.5);
       scale: 1;
       text-decoration: none;
 
       // レスポンシブ対応
-      @include media(sp) {
+      @include media-max(sm) {
         margin: grid-8px(5) grid-8px(1);
         padding: grid-8px(3);
-        box-shadow:
-          0 0 10px 3px
-            color-mix(in srgb, map.get($colors, "third-color"), transparent 30%),
-          0 0 10px 3px
-            color-mix(in srgb, map.get($colors, "third-color"), transparent 50%)
-            inset;
+        box-shadow: -3px -3px 3px 0 color-mix(
+            in srgb,
+            map.get($colors, "third-color"),
+            transparent 50%
+          ) inset;
       }
 
-      &:hover {
-        box-shadow:
-          0 0 30px 5px
-            color-mix(in srgb, map.get($colors, "third-color"), transparent 50%),
-          0 0 20px 5px
-            color-mix(in srgb, map.get($colors, "third-color"), transparent 50%)
-            inset;
-        scale: 1.05;
+      @include media-min(sm) {
+        &:hover {
+          box-shadow:
+            0 0 30px 5px
+              color-mix(
+                in srgb,
+                map.get($colors, "third-color"),
+                transparent 50%
+              ),
+            0 0 20px 5px
+              color-mix(
+                in srgb,
+                map.get($colors, "third-color"),
+                transparent 50%
+              )
+              inset;
+          scale: 1.05;
+        }
       }
     }
     &__title {
@@ -59,7 +68,7 @@ const { title, url, pubDate, description } = Astro.props;
       line-height: 2;
 
       // レスポンシブ対応
-      @include media(sp) {
+      @include media-max(sm) {
         font-size: map.get($font-sizes, "subheading");
         margin-block: 0.5em;
       }
