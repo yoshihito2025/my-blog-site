@@ -9,7 +9,9 @@ const pageTitle: string = "Not Found - Yoshihito";
   <div class="container">
     <h1>404 - NOT FOUND</h1>
     <button class="container__button">
-      <a href="/">BACK TO TOP</a>
+      <a href="/" class="container__button__text-wrap">
+        <p class="container__button__text">BACK TO TOP</p>
+      </a>
     </button>
   </div>
 </Layout>
@@ -23,17 +25,32 @@ const pageTitle: string = "Not Found - Yoshihito";
   .container {
     text-align: center;
     h1,
-    &__button a {
+    &__button__text {
       @include monospace-font();
       font-weight: 100;
     }
     &__button {
       @include container-style();
+      background-color: transparent;
       margin-block: grid-8px(5);
-      padding: 0.5em 5em;
-      a {
-        font-size: map.get($font-sizes, "heading");
+      transition: 0.2s ease-in;
+      &__text-wrap {
+        display: block;
+        height: 100%;
+        padding: 0.5em 5em;
+        width: 100%;
         text-decoration: none;
+      }
+      &__text {
+        color: map.get($colors, "third-color");
+        text-shadow: 0 0 10px map.get($colors, "third-color");
+        font-size: map.get($font-sizes, "heading");
+      }
+      &:hover {
+        border: 1px solid map.get($colors, "third-color");
+        box-shadow:
+          0 0 15px 3px map.get($colors, "third-color"),
+          0 0 15px 3px map.get($colors, "third-color") inset;
       }
     }
   }

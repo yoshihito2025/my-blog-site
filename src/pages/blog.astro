@@ -7,7 +7,7 @@ const pageTitle: string = "Blog Page - Yoshihito";
 ---
 
 <Layout pageTitle={pageTitle}>
-  <h1 class="main__title">Blog Page</h1>
+  <h1 class="main__title">/Blog_Page</h1>
   <ul class="main__entry-list">
     {
       allEntries.map((entry) => (
@@ -25,10 +25,13 @@ const pageTitle: string = "Blog Page - Yoshihito";
 <style lang="scss">
   @use "sass:map";
   @use "../styles/variables" as *;
+  @use "../styles/mixin" as *;
 
   .main {
     &__title {
+      @include monospace-font();
       margin-bottom: map.get($font-sizes, "display");
+      text-align: center;
     }
   }
 </style>

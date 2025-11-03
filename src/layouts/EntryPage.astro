@@ -59,6 +59,15 @@ const { frontmatter } = Astro.props;
 
     h2 {
       margin-block: 1em;
+      &::before {
+        content: "# ";
+        color: map.get($colors, "theme-color");
+      }
+      &:hover {
+        &::before {
+          color: map.get($colors, "third-color");
+        }
+      }
     }
     p {
       line-height: 1.8;

@@ -30,8 +30,8 @@ const { tag } = Astro.params;
 const { entries } = Astro.props;
 ---
 
-<Layout pageTitle={tag}>
-  <p>{tag}のタグが付いた記事</p>
+<Layout pageTitle=`${tag}のタグが付いた記事`>
+  <h1 class="main__title">{tag}のタグが付いた記事</h1>
   <ul>
     {
       entries.map((entry: any) => (
@@ -39,8 +39,20 @@ const { entries } = Astro.props;
           url={entry.url}
           title={entry.frontmatter.title}
           pubDate={entry.frontmatter.pubDate.toString().slice(0, 10)}
+          description={entry.frontmatter.description}
         />
       ))
     }
   </ul>
 </Layout>
+
+<style lang="scss">
+  @use "../../styles/mixin" as *;
+
+  .main {
+    &__title {
+      @include monospace-font;
+      text-align: center;
+    }
+  }
+</style>

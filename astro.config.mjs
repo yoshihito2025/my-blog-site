@@ -8,4 +8,5 @@ export default defineConfig({
       theme: "tokyo-night",
     },
   },
+  site: "https://yoshihito-lab.pages.dev/",
 });
