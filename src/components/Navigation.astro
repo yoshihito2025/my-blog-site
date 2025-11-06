@@ -13,7 +13,7 @@
     <li class="nav__list__item"><a href="/blog">Blog</a></li>
     <li class="nav__list__item"><a href="/tags">Tags</a></li>
     <li
-      id="copy-the-url-button"
+      id="copy-the-url-btn"
       class="nav__list__item nav__list__item--copy-the-url-button"
     >
       Copy the URL
@@ -45,8 +45,14 @@
     display: inline-block;
     padding: 10px;
     position: relative;
+
+    &:active,
+    &:hover {
+      -webkit-tap-highlight-color: transparent;
+    }
+
     &__bar {
-      @include pop-easing;
+      transition: 0.3s ease-in-out;
       background-color: var(--text-color);
       height: 2px;
       position: relative;
@@ -228,8 +234,8 @@
   const rootElem: HTMLElement = document.documentElement;
 
   // URLコピーのボタン
-  const copyTheURLButton = document.getElementById(
-    "copy-the-url-button"
+  const copyTheURLBtn = document.getElementById(
+    "copy-the-url-btn"
   ) as HTMLElement;
 
   // 指定されたカラーテーマに変更する関数
@@ -291,19 +297,19 @@
   });
 
   // URLをコピーする
-  copyTheURLButton?.addEventListener("click", () => {
+  copyTheURLBtn?.addEventListener("click", () => {
     navigator.clipboard
       .writeText(location.href)
       .then(() => {
-        copyTheURLButton.textContent = "SUCCESSFUL!";
+        copyTheURLBtn.textContent = "SUCCESSFUL!";
         setTimeout(function () {
-          copyTheURLButton.textContent = "Copy the URL";
+          copyTheURLBtn.textContent = "Copy the URL";
         }, 1000);
       })
-      .catch((err: unknown) => {
-        copyTheURLButton.textContent = "FAILED!";
+      .catch(() => {
+        copyTheURLBtn.textContent = "FAILED!";
         setTimeout(function () {
-          copyTheURLButton.textContent = "Copy the URL";
+          copyTheURLBtn.textContent = "Copy the URL";
         }, 1000);
       });
   });

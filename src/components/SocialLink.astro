@@ -53,10 +53,16 @@ const snsLinkList = [
       opacity: 0.5;
       place-items: center;
       width: 50px;
-      &:hover {
-        opacity: 1;
-        scale: 1.2;
-        box-shadow: map.get($container-styles, "box-shadow");
+
+      @media (hover: none) {
+        opacity: 0.8;
+      }
+      @media (hover: hover) {
+        &:hover {
+          opacity: 1;
+          scale: 1.2;
+          box-shadow: map.get($container-styles, "box-shadow");
+        }
       }
       img {
         height: 40px;

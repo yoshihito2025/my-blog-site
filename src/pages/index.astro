@@ -36,12 +36,12 @@ const sitemapList = [
   <!-- カードコンテナ -->
   <div class="main__container">
     <div class="main__container__card main__container__card--about-me">
-      <h2>👤About me</h2>
+      <h2>👤 About me</h2>
       <p class="monospace">about-me.json</p>
       <Code code={aboutmeCode} lang="json" class="code" theme="tokyo-night" />
     </div>
     <div class="main__container__card">
-      <h2>🛠️Skills</h2>
+      <h2>🛠️ Skills</h2>
       <h3>HTML / CSS</h3>
       <p>
         grid, flexレイアウトやCSS変数を使った簡単なwebサイトを作れるレベルです。
@@ -52,7 +52,7 @@ const sitemapList = [
       <p>ポインタはある程度理解したつもりです。</p>
     </div>
     <div class="main__container__card main__container__card--project">
-      <h2>🗄️Projects</h2>
+      <h2>🗄️ Projects</h2>
       <a
         href="https://github.com/yoshihito2025/click-game"
         target="_blank"
@@ -74,7 +74,7 @@ const sitemapList = [
       </p>
     </div>
     <div class="main__container__card main__container__card--sitemap">
-      <h2>📂Sitemap</h2>
+      <h2>📂 Sitemap</h2>
       <ul class="directory">
         {
           sitemapList.map((item) => (
@@ -108,14 +108,14 @@ const sitemapList = [
         font-size: calc(map.get($font-sizes, "display") * 0.9);
         text-align: center;
         @include media-max(sm) {
-          border-left: 3px solid map.get($colors, "third-color");
+          border-left: 5px solid
+            color-mix(in srgb, map.get($colors, "third-color"), transparent 20%);
           padding-left: 10px;
           text-align: left;
         }
         .yoshihito {
           color: map.get($colors, "third-color");
-          text-shadow: 0 0 30px
-            color-mix(in srgb, map.get($colors, "third-color"), transparent 30%);
+          text-shadow: 0 0 30px map.get($colors, "third-color");
         }
       }
       // カードのコンテナ
@@ -129,6 +129,16 @@ const sitemapList = [
         // カードのスタイル
         &__card {
           @include container-style();
+          border: 1px solid
+            color-mix(
+              in srgb,
+              color-mix(
+                in srgb,
+                map.get($colors, "black"),
+                map.get($colors, "white") 50%
+              ),
+              transparent 50%
+            );
           height: 365px;
           overflow-x: hidden;
           overflow-y: auto;
@@ -136,11 +146,42 @@ const sitemapList = [
           transition: 0.5s ease-out;
           width: 300px;
 
+          @media (hover: none) {
+            box-shadow: 10px 10px 20px
+              color-mix(in srgb, map.get($colors, "black"), transparent 90%);
+          }
+
+          @media (hover: hover) {
+            &:hover {
+              box-shadow:
+                10px 10px 60px
+                  color-mix(
+                    in srgb,
+                    map.get($colors, "theme-color"),
+                    transparent 65%
+                  ),
+                -10px -10px 60px
+                  color-mix(
+                    in srgb,
+                    map.get($colors, "third-color"),
+                    transparent 65%
+                  );
+            }
+          }
+
           // カードの見出し
           h2 {
             border-left: 10px solid var(--border-left-color);
             color: var(--link-color);
             margin-bottom: map.get($font-sizes, "heading");
+            padding-left: grid-8px(1);
+            text-shadow: 0 0 10px
+              color-mix(in srgb, var(--link-color), transparent 30%);
+          }
+          h3 {
+            border-left: 5px solid var(--border-left-color);
+            line-height: 1.2;
+            margin-block: 1em;
             padding-left: grid-8px(1);
           }
 
@@ -172,11 +213,7 @@ const sitemapList = [
           // Project のスタイル
           &--project {
             &-name {
-              h3 {
-                margin-block: 1em;
-                border-left: 3px solid var(--border-left-color);
-                padding-left: grid-8px(1);
-              }
+              text-decoration: none;
             }
           }
 

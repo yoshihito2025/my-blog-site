@@ -25,6 +25,11 @@ import Navigation from "./Navigation.astro";
     background-color: var(--container-bg-color);
     border: 1px solid var(--container-border-color);
     border-radius: map.get($container-styles, "border-radius");
+    box-shadow: -5px -5px 10px 3px color-mix(
+        in srgb,
+        var(--text-color),
+        transparent 93%
+      ) inset;
     display: flex;
     height: 80px;
     justify-content: space-between;
