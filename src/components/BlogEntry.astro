@@ -2,11 +2,11 @@
 const { title, url, pubDate, description } = Astro.props;
 ---
 
-<li class="main__entry-list__item">
-  <a class="main__entry-list__item__link" href={url}>
-    <p class="main__entry-list__item__pub-date">Publication date : {pubDate}</p>
-    <p class="main__entry-list__item__title">{title}</p>
-    <p class="main__entry-list__item__description">
+<li class="entry-list__item">
+  <a class="entry-list__item__link" href={url}>
+    <p class="entry-list__item__pub-date">Publication date : {pubDate}</p>
+    <p class="entry-list__item__title">{title}</p>
+    <p class="entry-list__item__description">
       Description : {description}
     </p>
   </a>
@@ -18,7 +18,7 @@ const { title, url, pubDate, description } = Astro.props;
   @use "../styles/mixin" as *;
   @use "../styles/function" as *;
 
-  .main__entry-list__item {
+  .entry-list__item {
     // ブロックの中身
     &__link {
       @include pop-easing;
@@ -35,14 +35,16 @@ const { title, url, pubDate, description } = Astro.props;
       @include media-max(sm) {
         margin: grid-8px(5) grid-8px(1);
         padding: grid-8px(3);
-        box-shadow: -3px -3px 3px 0 color-mix(
-            in srgb,
-            map.get($colors, "third-color"),
-            transparent 50%
-          ) inset;
+        box-shadow:
+          3px 3px 10px 3px
+            color-mix(in srgb, map.get($colors, "third-color"), transparent 50%)
+            inset,
+          -3px -3px 10px 3px
+            color-mix(in srgb, map.get($colors, "theme-color"), transparent 50%)
+            inset;
       }
 
-      @include media-min(sm) {
+      @media (hover: hover) {
         &:hover {
           box-shadow:
             0 0 30px 5px

@@ -63,9 +63,11 @@ const { frontmatter } = Astro.props;
         content: "# ";
         color: map.get($colors, "theme-color");
       }
-      &:hover {
-        &::before {
-          color: map.get($colors, "third-color");
+      @media (hover: hover) {
+        &:hover {
+          &::before {
+            color: map.get($colors, "third-color");
+          }
         }
       }
     }

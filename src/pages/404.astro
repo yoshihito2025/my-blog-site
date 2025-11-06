@@ -46,11 +46,13 @@ const pageTitle: string = "Not Found - Yoshihito";
         text-shadow: 0 0 10px map.get($colors, "third-color");
         font-size: map.get($font-sizes, "heading");
       }
-      &:hover {
-        border: 1px solid map.get($colors, "third-color");
-        box-shadow:
-          0 0 15px 3px map.get($colors, "third-color"),
-          0 0 15px 3px map.get($colors, "third-color") inset;
+      @media (hover: hover) {
+        &:hover {
+          border: 1px solid map.get($colors, "third-color");
+          box-shadow:
+            0 0 15px 3px map.get($colors, "third-color"),
+            0 0 15px 3px map.get($colors, "third-color") inset;
+        }
       }
     }
   }

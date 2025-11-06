@@ -224,6 +224,7 @@
   ) as HTMLInputElement;
   const themeMenuList =
     document.querySelectorAll<HTMLElement>("#theme-menu li");
+  let colorThemeData = localStorage.getItem("colorThemeData");
   const rootElem: HTMLElement = document.documentElement;
 
   // URLコピーのボタン
@@ -231,37 +232,45 @@
     "copy-the-url-button"
   ) as HTMLElement;
 
-  // カラーテーマの選択肢のsystemを選択済みのスタイルにする
-  for (const element of themeMenuList) {
-    if (element.dataset.themeName === "system") {
-      element.classList.add("selected");
+  // 指定されたカラーテーマに変更する関数
+  function changeColorTheme(element: HTMLElement) {
+    for (const element of themeMenuList) {
+      element.classList.remove("selected");
+    }
+    const themeName = element.dataset.themeName ?? "system";
+
+    element.classList.add("selected");
+
+    switch (themeName) {
+      case "light":
+        rootElem.dataset.theme = "light";
+        break;
+      case "dark":
+        rootElem.dataset.theme = "dark";
+        break;
+      default:
+        rootElem.dataset.theme = "system";
     }
   }
 
-  // カラーテーマを条件に当てはめる
-  themeMenuList.forEach((item) => {
+  // ローカルストレージから初期値を読み込む
+  themeMenuList.forEach((item: HTMLElement) => {
+    const isSystemDefault =
+      !colorThemeData && item.dataset.themeName === "system";
+    const isSavedTheme = item.dataset.themeName === colorThemeData;
+
+    if (isSystemDefault || isSavedTheme) {
+      changeColorTheme(item);
+    }
+  });
+
+  // メニューのアイテムをクリックしたときカラーテーマを条件に当てはめる
+  themeMenuList.forEach((item: HTMLElement) => {
     item.addEventListener("click", (event: Event) => {
-      // 選択肢の色をリセット
-      for (const element of themeMenuList) {
-        element.classList.remove("selected");
-      }
-
       const li = event.currentTarget as HTMLElement;
-      const themeName = li.dataset.themeName ?? "system";
-
-      li.classList.add("selected");
-
-      switch (themeName) {
-        case "light":
-          rootElem.dataset.theme = "light";
-          break;
-        case "dark":
-          rootElem.dataset.theme = "dark";
-          break;
-        default:
-          rootElem.dataset.theme = "system";
-      }
-      console.log(rootElem.dataset.theme);
+      localStorage.setItem("colorThemeData", li.dataset.themeName ?? "system");
+      // 選択肢の色をリセット
+      changeColorTheme(li);
       // メニューを閉じる
       if (themeMenuToggle) {
         themeMenuToggle.checked = false;
