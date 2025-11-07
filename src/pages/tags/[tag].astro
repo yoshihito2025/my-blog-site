@@ -1,7 +1,8 @@
 ---
+import "../../styles/pages/tags/tag.scss";
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Wrapper.astro";
-import BlogEntry from "../../components/main/BlogEntry.astro";
+import EntryCards from "../../components/main/EntryCards.astro";
 
 // 静的サイト生成
 export async function getStaticPaths() {
@@ -31,10 +32,10 @@ const { entries } = Astro.props;
 
 <Layout pageTitle=`${tag}のタグが付いた記事`>
   <h1 class="main__title">{tag}のタグが付いた記事</h1>
-  <ul>
+  <ul class="main__entry-cards">
     {
       entries.map((entry: any) => (
-        <BlogEntry
+        <EntryCards
           url={`/blog/${entry.slug}/`}
           title={entry.data.title}
           pubDate={entry.data.pubDate.toString().slice(0, 10)}
@@ -44,14 +45,3 @@ const { entries } = Astro.props;
     }
   </ul>
 </Layout>
-
-<style lang="scss">
-  @use "../../styles/mixin" as *;
-
-  .main {
-    &__title {
-      @include monospace-font;
-      text-align: center;
-    }
-  }
-</style>

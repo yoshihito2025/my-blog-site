@@ -1,0 +1,11 @@
+@use "../../mixin" as *;
+
+.main {
+  &__title {
+    @include monospace-font;
+    text-align: center;
+  }
+  &__entry-cards {
+    @include entry-cards-layout();
+  }
+}

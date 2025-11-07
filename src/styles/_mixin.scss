@@ -1,5 +1,6 @@
 @use "sass:map";
 @use "../styles/variables" as *;
+@use "../styles/function" as *;
 @use "../styles/color-theme" as *;
 
 @mixin container-style() {
@@ -37,4 +38,12 @@
 
 @mixin monospace-font() {
   font-family: Consolas, "Courier New", Courier, "Lucida Console", monospace;
+}
+
+@mixin entry-cards-layout() {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: grid-8px(5) grid-8px(3);
+  justify-content: center;
 }

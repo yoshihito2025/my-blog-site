@@ -1,0 +1,14 @@
+@use "sass:map";
+@use "../../variables" as *;
+@use "../../mixin" as *;
+
+.main {
+  &__title {
+    @include monospace-font();
+    margin-bottom: map.get($font-sizes, "display");
+    text-align: center;
+  }
+  &__entry-cards {
+    @include entry-cards-layout();
+  }
+}

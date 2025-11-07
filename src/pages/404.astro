@@ -1,6 +1,6 @@
 ---
+import "../styles/pages/404.scss";
 import Layout from "../layouts/Wrapper.astro";
-
 const pageTitle: string = "Not Found - Yoshihito";
 ---
 
@@ -14,51 +14,3 @@ const pageTitle: string = "Not Found - Yoshihito";
     </button>
   </div>
 </Layout>
-
-<style lang="scss">
-  @use "sass:map";
-  @use "../styles/variables" as *;
-  @use "../styles/mixin" as *;
-  @use "../styles/function" as *;
-
-  .container {
-    text-align: center;
-    h1,
-    &__button__text {
-      @include monospace-font();
-      font-weight: 100;
-    }
-    &__button {
-      @include container-style();
-      background-color: transparent;
-      margin-block: grid-8px(5);
-      transition: 0.2s ease-in;
-      &__text-wrap {
-        display: block;
-        height: 100%;
-        padding: 0.5em 2em;
-        width: 100%;
-        text-decoration: none;
-      }
-      &__text {
-        color: map.get($colors, "third-color");
-        text-shadow: 0 0 10px map.get($colors, "third-color");
-        font-size: map.get($font-sizes, "heading");
-      }
-      @media (hover: none) {
-        border: 1px solid map.get($colors, "third-color");
-        box-shadow:
-          0 0 15px 3px map.get($colors, "third-color"),
-          0 0 15px 3px map.get($colors, "third-color") inset;
-      }
-      @media (hover: hover) {
-        &:hover {
-          border: 1px solid map.get($colors, "third-color");
-          box-shadow:
-            0 0 15px 3px map.get($colors, "third-color"),
-            0 0 15px 3px map.get($colors, "third-color") inset;
-        }
-      }
-    }
-  }
-</style>

@@ -1,0 +1,21 @@
+@use "../../mixin" as *;
+@use "../../function" as *;
+
+.main {
+  &__title {
+    @include monospace-font;
+    text-align: center;
+  }
+  &__tags {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    &__item {
+      @include container-style;
+      margin: grid-8px(5) grid-8px(2);
+      padding: 0.5em 1em;
+      text-decoration: none;
+    }
+  }
+}
