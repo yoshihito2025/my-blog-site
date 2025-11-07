@@ -1,0 +1,60 @@
+@use "sass:map";
+@use "../../variables" as *;
+@use "../../mixin" as *;
+@use "../../function" as *;
+
+.item {
+  // ブロックの中身
+  &__link {
+    @include pop-easing;
+    @include container-style();
+    box-shadow: none;
+    cursor: pointer;
+    display: block;
+    margin: grid-8px(5) grid-8px(3);
+    padding: grid-8px(2.5);
+    scale: 1;
+    text-decoration: none;
+
+    // レスポンシブ対応
+    @include media-max(sm) {
+      margin: grid-8px(5) grid-8px(1);
+      padding: grid-8px(3);
+      @media (hover: none) {
+        box-shadow: 10px 10px 20px 3px
+            color-mix(in srgb, map.get($colors, "third-color"), transparent 50%)
+            inset,
+          -10px -10px 20px 3px
+            color-mix(in srgb, map.get($colors, "theme-color"), transparent 50%)
+            inset,
+          0 0 20px color-mix(in srgb, var(--text-color), transparent 60%);
+      }
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        box-shadow: 0 0 30px 5px
+            color-mix(in srgb, map.get($colors, "third-color"), transparent 50%),
+          0 0 20px 5px
+            color-mix(in srgb, map.get($colors, "third-color"), transparent 50%)
+            inset;
+        scale: 1.05;
+      }
+    }
+  }
+  &__title {
+    font-size: map.get($font-sizes, "heading");
+    font-weight: bold;
+    line-height: 2;
+
+    // レスポンシブ対応
+    @include media-max(sm) {
+      font-size: map.get($font-sizes, "subheading");
+      margin-block: 0.5em;
+    }
+  }
+  &__pub-date,
+  &__description {
+    color: color-mix(in srgb, var(--text-color), transparent 10%);
+  }
+}

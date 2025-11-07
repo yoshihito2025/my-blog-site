@@ -1,20 +1,7 @@
 ---
-
+import "../styles/components/footer.scss";
 ---
 
 <footer class="footer">
   <small>&copy; 2025 Yoshihito. All rights reserved.</small>
 </footer>
-
-<style lang="scss">
-  @use "../styles/color-theme" as *;
-  @use "../styles/function" as *;
-  .footer {
-    padding-block: 0 grid-8px(10);
-    text-align: center;
-    small {
-      line-height: 2;
-      color: color-mix(in srgb, var(--text-color), transparent 20%);
-    }
-  }
-</style>

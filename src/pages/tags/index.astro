@@ -1,10 +1,10 @@
 ---
+import { getCollection } from "astro:content";
 import Layout from "../../layouts/Wrapper.astro";
-const allEntries = Object.values(
-  import.meta.glob("../entry/*.md", { eager: true })
-);
+
+const entries = await getCollection("blog");
 const tags = [
-  ...new Set(allEntries.map((entry: any) => entry.frontmatter.tags).flat()),
+  ...new Set(entries.flatMap((entry) => entry.data.tags || []).filter(Boolean)),
 ];
 const pageTitle: string = "タグインデックス";
 ---

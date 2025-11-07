@@ -1,5 +1,4 @@
 ---
-import "../styles/global.scss";
 import Layout from "../layouts/Wrapper.astro";
 
 const pageTitle: string = "Not Found - Yoshihito";
@@ -45,6 +44,12 @@ const pageTitle: string = "Not Found - Yoshihito";
         color: map.get($colors, "third-color");
         text-shadow: 0 0 10px map.get($colors, "third-color");
         font-size: map.get($font-sizes, "heading");
+      }
+      @media (hover: none) {
+        border: 1px solid map.get($colors, "third-color");
+        box-shadow:
+          0 0 15px 3px map.get($colors, "third-color"),
+          0 0 15px 3px map.get($colors, "third-color") inset;
       }
       @media (hover: hover) {
         &:hover {

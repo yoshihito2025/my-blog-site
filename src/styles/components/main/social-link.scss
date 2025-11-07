@@ -1,0 +1,44 @@
+@use "sass:map";
+@use "../../color-theme" as *;
+@use "../../function" as *;
+@use "../../mixin" as *;
+@use "../../variables" as *;
+
+.social-link {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  list-style: none;
+  margin-block: grid-8px(7);
+  &__item a {
+    @include container-style();
+    @include pop-easing();
+    background-color: color-mix(
+      in srgb,
+      map.get($colors, "white"),
+      map.get($colors, "black") 5%
+    );
+    display: grid;
+    height: 50px;
+    opacity: 0.5;
+    place-items: center;
+    width: 50px;
+
+    @media (hover: none) {
+      opacity: 0.8;
+    }
+    @media (hover: hover) {
+      &:hover {
+        opacity: 1;
+        scale: 1.2;
+        box-shadow: map.get($container-styles, "box-shadow");
+      }
+    }
+    img {
+      height: 40px;
+      width: 40px;
+    }
+  }
+}

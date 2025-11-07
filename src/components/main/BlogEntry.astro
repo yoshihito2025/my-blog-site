@@ -1,0 +1,14 @@
+---
+import "../../styles/components/main/blog-entry.scss";
+const { title, url, pubDate, description } = Astro.props;
+---
+
+<li class="item">
+  <a class="item__link" href={url}>
+    <p class="item__pub-date">Publication date : {pubDate}</p>
+    <p class="item__title">{title}</p>
+    <p class="item__description">
+      {description}
+    </p>
+  </a>
+</li>

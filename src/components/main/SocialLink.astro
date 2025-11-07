@@ -1,0 +1,28 @@
+---
+import "../../styles/components/main/social-link.scss";
+
+const snsLinkList = [
+  {
+    name: "GitHub",
+    url: "https://github.com/yoshihito2025",
+    image: "github.svg",
+  },
+  {
+    name: "X",
+    url: "https://x.com/yoshihito_2025",
+    image: "x.svg",
+  },
+];
+---
+
+<ul class="social-link">
+  {
+    snsLinkList.map((item) => (
+      <li class="social-link__item">
+        <a href={item.url} target="_blank">
+          <img src={`/sns-icon/${item.image}`} alt={`${item.name} logo`} />
+        </a>
+      </li>
+    ))
+  }
+</ul>

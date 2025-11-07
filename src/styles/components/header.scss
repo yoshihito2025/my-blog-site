@@ -1,0 +1,63 @@
+@use "sass:map";
+@use "../variables" as *;
+@use "../color-theme" as *;
+@use "../function" as *;
+@use "../mixin" as *;
+
+.header {
+  @include container-style();
+  align-items: center;
+  animation: 1s down;
+  animation-timing-function: $pop-ease;
+  background-color: var(--container-bg-color);
+  border: 1px solid var(--container-border-color);
+  border-radius: map.get($container-styles, "border-radius");
+  box-shadow: -5px -5px 10px 3px color-mix(
+      in srgb,
+      var(--text-color),
+      transparent 93%
+    ) inset;
+  display: flex;
+  height: 80px;
+  justify-content: space-between;
+  margin-block: 0 grid-8px(5);
+  padding: grid-8px(1.5) grid-8px(2);
+  position: sticky;
+  top: grid-8px(2);
+  width: auto;
+  // SP
+  @include media-max(md) {
+    height: 75px;
+    padding: grid-8px(1);
+  }
+  .header__logo {
+    display: flex;
+    align-items: center;
+    gap: grid-8px(1);
+    .header__logo--icon {
+      height: 40px;
+      width: auto;
+      @include media-max(xs) {
+        height: 35px;
+      }
+    }
+    .header__logo--title {
+      height: 30px;
+      width: auto;
+      @include media-max(xs) {
+        height: 25px;
+      }
+    }
+  }
+}
+
+@keyframes down {
+  0% {
+    opacity: 0;
+    translate: 0 -150%;
+  }
+  100% {
+    opacity: 1;
+    translate: 0;
+  }
+}

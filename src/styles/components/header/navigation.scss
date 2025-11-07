@@ -1,0 +1,187 @@
+@use "sass:map";
+@use "../../variables" as *;
+@use "../../color-theme" as *;
+@use "../../function" as *;
+@use "../../mixin" as *;
+
+// ハンバーガーメニュー
+.hamburger-menu {
+  cursor: pointer;
+  display: inline-block;
+  padding: 10px;
+  position: relative;
+
+  &:active,
+  &:hover {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  &__bar {
+    transition: 0.3s ease-in-out;
+    background-color: var(--text-color);
+    height: 2px;
+    position: relative;
+    width: 35px;
+    &::before,
+    &::after {
+      @include pop-easing;
+      background-color: var(--text-color);
+      content: "";
+      height: 2px;
+      left: 0;
+      position: absolute;
+      width: 35px;
+    }
+    &::before {
+      top: -10px;
+    }
+    &::after {
+      top: 10px;
+    }
+  }
+  @include media-min(md) {
+    display: none;
+  }
+}
+
+#menuToggle:checked ~ .hamburger-menu {
+  .hamburger-menu__bar {
+    // 中央のバーを透明にする
+    background-color: transparent;
+
+    // 上のバーを45度回転
+    &::before {
+      rotate: 45deg;
+      top: 0;
+    }
+
+    // 下のバーを-45度回転
+    &::after {
+      rotate: -45deg;
+      top: 0;
+    }
+  }
+}
+
+.nav {
+  // SP
+  @include media-max(md) {
+    @include container-style();
+    background-color: var(--header__nav-bg-color);
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: calc(100% + grid-8px(1.5));
+    width: 130px;
+  }
+  &__list {
+    list-style: none;
+
+    // レスポンシブ対応
+    @include media-max(md) {
+      display: block;
+    }
+    @include media-min(md) {
+      display: flex;
+    }
+
+    // リストアイテム
+    &__item {
+      &:active {
+        animation: 0.2s clicked-list-item ease;
+      }
+
+      // レスポンシブ対応
+      @include media-max(md) {
+        padding-block: grid-8px(2);
+        &:not(:last-child) {
+          border-bottom: 1px solid var(--container-border-color);
+        }
+      }
+      @include media-min(md) {
+        padding-inline: grid-8px(1.5);
+        line-height: 1.5;
+        &:not(:last-child) {
+          border-right: 2px solid var(--container-border-color);
+        }
+      }
+
+      // カラーテーマを変更するボタン
+      &--theme-menu-button {
+        color: var(--link-color);
+        cursor: pointer;
+      }
+      a {
+        text-decoration: none;
+      }
+      &--copy-the-url-button {
+        cursor: pointer;
+      }
+    }
+  }
+
+  // カラーテーマ変更UI
+  &__theme-menu {
+    @include container-style();
+    @include pop-easing;
+    background-color: var(--header__nav-bg-color);
+    list-style: none;
+    opacity: 0.5;
+    position: absolute;
+    scale: 1 0;
+    text-align: center;
+    transform-origin: top;
+    width: 130px;
+
+    // レスポンシブ対応
+    @include media-max(md) {
+      top: calc(100% + grid-8px(1.5));
+    }
+    @include media-min(md) {
+      top: grid-8px(12);
+      right: 0;
+    }
+
+    &__item {
+      cursor: pointer;
+      padding-block: grid-8px(2);
+      &:not(:last-child) {
+        border-bottom: 1px solid var(--container-border-color);
+      }
+    }
+    .selected {
+      color: var(--link-color);
+    }
+  }
+  #themeMenuToggle:checked ~ &__theme-menu {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+// ナビゲーション
+@include media-max(md) {
+  .nav {
+    @include pop-easing;
+    opacity: 0.5;
+    scale: 1 0;
+    transform-origin: top;
+  }
+  #menuToggle:checked ~ .nav {
+    scale: 1;
+    opacity: 1;
+  }
+}
+
+// アニメーション
+@keyframes clicked-list-item {
+  0% {
+    color: var(--text-color);
+  }
+  50% {
+    color: var(--link-color);
+  }
+  100% {
+    color: var(--text-color);
+  }
+}

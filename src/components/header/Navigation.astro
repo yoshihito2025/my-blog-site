@@ -1,0 +1,126 @@
+---
+import "../../styles/components/header/navigation.scss";
+---
+
+<input type="checkbox" id="menuToggle" hidden />
+<label for="menuToggle" class="hamburger-menu">
+  <div class="hamburger-menu__bar"></div>
+</label>
+
+<nav class="nav">
+  <ul class="nav__list">
+    <li class="nav__list__item"><a href="/">Top</a></li>
+    <li class="nav__list__item"><a href="/blog">Blog</a></li>
+    <li class="nav__list__item"><a href="/tags">Tags</a></li>
+    <li
+      id="copy-the-url-btn"
+      class="nav__list__item nav__list__item--copy-the-url-button"
+    >
+      Copy the URL
+    </li>
+    <li class="nav__list__item">
+      <label for="themeMenuToggle" class="nav__list__item--theme-menu-button"
+        >color_theme</label
+      >
+    </li>
+  </ul>
+  <input type="checkbox" name="theme-menuToggle" id="themeMenuToggle" hidden />
+  <ul class="nav__theme-menu" id="theme-menu">
+    <li class="nav__theme-menu__item" data-theme-name="light">light</li>
+    <li class="nav__theme-menu__item" data-theme-name="dark">dark</li>
+    <li class="nav__theme-menu__item" data-theme-name="system">system</li>
+  </ul>
+</nav>
+
+<script>
+  // ナビゲーションのUIを定義
+  const menuToggle = document.getElementById("menuToggle") as HTMLInputElement;
+  const themeMenuToggle = document.getElementById(
+    "themeMenuToggle"
+  ) as HTMLInputElement;
+  const themeMenuList =
+    document.querySelectorAll<HTMLElement>("#theme-menu li");
+  let colorThemeData = localStorage.getItem("colorThemeData");
+  const rootElem: HTMLElement = document.documentElement;
+
+  // URLコピーのボタン
+  const copyTheURLBtn = document.getElementById(
+    "copy-the-url-btn"
+  ) as HTMLElement;
+
+  // 指定されたカラーテーマに変更する関数
+  function changeColorTheme(element: HTMLElement) {
+    for (const element of themeMenuList) {
+      element.classList.remove("selected");
+    }
+    const themeName = element.dataset.themeName ?? "system";
+
+    element.classList.add("selected");
+
+    switch (themeName) {
+      case "light":
+        rootElem.dataset.theme = "light";
+        break;
+      case "dark":
+        rootElem.dataset.theme = "dark";
+        break;
+      default:
+        rootElem.dataset.theme = "system";
+    }
+  }
+
+  // ローカルストレージから初期値を読み込む
+  themeMenuList.forEach((item: HTMLElement) => {
+    const isSystemDefault =
+      !colorThemeData && item.dataset.themeName === "system";
+    const isSavedTheme = item.dataset.themeName === colorThemeData;
+
+    if (isSystemDefault || isSavedTheme) {
+      changeColorTheme(item);
+    }
+  });
+
+  // メニューのアイテムをクリックしたときカラーテーマを条件に当てはめる
+  themeMenuList.forEach((item: HTMLElement) => {
+    item.addEventListener("click", (event: Event) => {
+      const li = event.currentTarget as HTMLElement;
+      localStorage.setItem("colorThemeData", li.dataset.themeName ?? "system");
+      // 選択肢の色をリセット
+      changeColorTheme(li);
+      // メニューを閉じる
+      if (themeMenuToggle) {
+        themeMenuToggle.checked = false;
+      }
+      if (menuToggle) {
+        menuToggle.checked = false;
+      }
+    });
+  });
+
+  // ハンバーガーメニューが開かれていないときの処理
+  menuToggle?.addEventListener("change", (event: Event) => {
+    if (menuToggle.checked == false) {
+      if (themeMenuToggle) {
+        themeMenuToggle.checked = false;
+      }
+    }
+  });
+
+  // URLをコピーする
+  copyTheURLBtn?.addEventListener("click", () => {
+    navigator.clipboard
+      .writeText(location.href)
+      .then(() => {
+        copyTheURLBtn.textContent = "SUCCESSFUL!";
+        setTimeout(function () {
+          copyTheURLBtn.textContent = "Copy the URL";
+        }, 1000);
+      })
+      .catch(() => {
+        copyTheURLBtn.textContent = "FAILED!";
+        setTimeout(function () {
+          copyTheURLBtn.textContent = "Copy the URL";
+        }, 1000);
+      });
+  });
+</script>

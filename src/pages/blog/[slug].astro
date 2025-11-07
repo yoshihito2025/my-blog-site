@@ -1,20 +1,31 @@
 ---
-import Layout from "./Wrapper.astro";
-const { frontmatter } = Astro.props;
+import Layout from "../../layouts/Wrapper.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("blog");
+  return entries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
 ---
 
-<Layout pageTitle={`${frontmatter.title} - Yoshihito`}>
+<Layout pageTitle={`${entry.data.title} - Yoshihito`}>
   <p class="main__entry-pub-date">
-    pub date : {frontmatter.pubDate.toString().slice(0, 10)}
+    pub date : {entry.data.pubDate.toString().slice(0, 10)}
   </p>
-  <h1 class="main__entry-title">{frontmatter.title}</h1>
+  <h1 class="main__entry-title">{entry.data.title}</h1>
   <hr />
   <div class="entry-contents">
-    <slot />
+    <Content />
   </div>
   <div class="tags">
     {
-      frontmatter.tags.map((tag: string) => (
+      entry.data.tags?.map((tag: string) => (
         <p class="tags__tag">
           <a href={`/tags/${tag}`}>{tag}</a>
         </p>
@@ -25,10 +36,10 @@ const { frontmatter } = Astro.props;
 
 <style lang="scss" is:global>
   @use "sass:map";
-  @use "../styles/variables" as *;
-  @use "../styles/color-theme" as *;
-  @use "../styles/mixin" as *;
-  @use "../styles/function" as *;
+  @use "../../styles/variables" as *;
+  @use "../../styles/color-theme" as *;
+  @use "../../styles/mixin" as *;
+  @use "../../styles/function" as *;
 
   .main {
     @include media-min(sm) {

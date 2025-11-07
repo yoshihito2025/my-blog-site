@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/EntryPage.astro
 title: "僕について"
 pubDate: 2022-11-02
 description: "自己紹介ページです。是非ご覧ください。"

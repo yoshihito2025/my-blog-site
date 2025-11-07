@@ -1,0 +1,37 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Wrapper.astro";
+import BlogEntry from "../../components/main/BlogEntry.astro";
+const entries = await getCollection("blog");
+const pageTitle: string = "Blog Page - Yoshihito";
+---
+
+<Layout pageTitle={pageTitle}>
+  <h1 class="main__title">/Blog_Page</h1>
+  <ul class="main__entry-list">
+    {
+      entries.map((entry) => (
+        <BlogEntry
+          title={entry.data.title}
+          url={`/blog/${entry.slug}/`}
+          pubDate={entry.data.pubDate.toString().slice(0, 10)}
+          description={entry.data.description}
+        />
+      ))
+    }
+  </ul>
+</Layout>
+
+<style lang="scss">
+  @use "sass:map";
+  @use "../../styles/variables" as *;
+  @use "../../styles/mixin" as *;
+
+  .main {
+    &__title {
+      @include monospace-font();
+      margin-bottom: map.get($font-sizes, "display");
+      text-align: center;
+    }
+  }
+</style>
