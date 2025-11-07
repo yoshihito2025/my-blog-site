@@ -3,10 +3,11 @@ import "../../styles/pages/blog/slug.scss";
 import Layout from "../../layouts/Wrapper.astro";
 import { getCollection } from "astro:content";
 
+// 個々の記事ページを生成
 export async function getStaticPaths() {
   const entries = await getCollection("blog");
   return entries.map((entry) => ({
-    params: { slug: entry.slug },
+    params: { slug: entry.slug }, // パラメータのスラッグを返す
     props: { entry },
   }));
 }

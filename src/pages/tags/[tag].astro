@@ -36,7 +36,7 @@ const { entries } = Astro.props;
     {
       entries.map((entry: any) => (
         <EntryCards
-          url={`/blog/${entry.slug}/`}
+          url={`/entry/${entry.slug}/`}
           title={entry.data.title}
           pubDate={entry.data.pubDate.toString().slice(0, 10)}
           description={entry.data.description}

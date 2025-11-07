@@ -1,5 +1,6 @@
 import { defineCollection, z } from "astro:content";
 
+// 渡すデータの構造と型を定義
 const blogCollection = defineCollection({
   schema: z.object({
     title: z.string(),

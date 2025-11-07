@@ -1,6 +1,6 @@
 ---
-import "../../styles/pages/blog/index.scss";
 import { getCollection } from "astro:content";
+import "../../styles/pages/blog/index.scss";
 import Layout from "../../layouts/Wrapper.astro";
 import EntryCards from "../../components/main/EntryCards.astro";
 const entries = await getCollection("blog");
@@ -14,7 +14,7 @@ const pageTitle: string = "Blog Page - Yoshihito";
       entries.map((entry) => (
         <EntryCards
           title={entry.data.title}
-          url={`/blog/${entry.slug}/`}
+          url={`/entry/${entry.slug}/`}
           pubDate={entry.data.pubDate.toString().slice(0, 10)}
           description={entry.data.description}
         />
