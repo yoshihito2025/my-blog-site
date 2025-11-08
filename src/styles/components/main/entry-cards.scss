@@ -17,39 +17,10 @@
     justify-content: center;
     overflow: hidden;
     padding: grid-8px(3) grid-8px(5);
-    position: relative;
     scale: 1;
     text-decoration: none;
     transition: 0.3s ease-out;
     width: 302px;
-
-    &::before {
-      animation: rotate-border 3s linear infinite;
-      background-image: linear-gradient(
-        90deg,
-        map.get($colors, "theme-color"),
-        map.get($colors, "third-color")
-      );
-      content: "";
-      height: 50%;
-      position: absolute;
-      width: 120%;
-    }
-
-    &::after {
-      @include container-style();
-      background-color: color-mix(in srgb, map.get($colors, "black"), #000 3%);
-      border: none;
-      content: "";
-      position: absolute;
-      inset: 3px;
-      transition: 0.5s linear;
-    }
-
-    &::before,
-    &::after {
-      z-index: -1;
-    }
 
     // レスポンシブ対応
     @include media-max(sm) {
