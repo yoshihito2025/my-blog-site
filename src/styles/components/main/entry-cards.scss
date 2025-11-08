@@ -1,21 +1,55 @@
 @use "sass:map";
 @use "../../variables" as *;
+@use "../../color-theme" as *;
 @use "../../mixin" as *;
 @use "../../function" as *;
 
 .item {
   // ブロックの中身
-  &__link {
+  &__card {
     @include container-style();
+    align-items: center;
     box-shadow: none;
     cursor: pointer;
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
     height: 170px;
+    justify-content: center;
+    overflow: hidden;
     padding: grid-8px(3) grid-8px(5);
+    position: relative;
     scale: 1;
     text-decoration: none;
     transition: 0.3s ease-out;
     width: 302px;
+
+    &::before {
+      animation: rotate-border 3s linear infinite;
+      background-image: linear-gradient(
+        90deg,
+        map.get($colors, "theme-color"),
+        map.get($colors, "third-color")
+      );
+      content: "";
+      height: 50%;
+      position: absolute;
+      width: 120%;
+    }
+
+    &::after {
+      @include container-style();
+      background-color: color-mix(in srgb, map.get($colors, "black"), #000 3%);
+      border: none;
+      content: "";
+      position: absolute;
+      inset: 3px;
+      transition: 0.5s linear;
+    }
+
+    &::before,
+    &::after {
+      z-index: -1;
+    }
 
     // レスポンシブ対応
     @include media-max(sm) {
@@ -23,6 +57,26 @@
       @media (hover: none) {
         transition: 0.1s;
         &:active {
+          box-shadow: 10px 10px 20px 3px
+              color-mix(
+                in srgb,
+                map.get($colors, "third-color") inset,
+                transparent 50%
+              ),
+            -10px -10px 20px 3px
+              color-mix(
+                in srgb,
+                map.get($colors, "theme-color") inset,
+                transparent 50%
+              ),
+            0 0 20px color-mix(in srgb, var(--text-color), transparent 60%);
+        }
+      }
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        &::after {
           box-shadow: 10px 10px 20px 3px
               color-mix(
                 in srgb,
@@ -38,20 +92,8 @@
               )
               inset,
             0 0 20px color-mix(in srgb, var(--text-color), transparent 60%);
+          scale: 1.05;
         }
-      }
-    }
-
-    @media (hover: hover) {
-      &:hover {
-        box-shadow: 10px 10px 20px 3px
-            color-mix(in srgb, map.get($colors, "third-color"), transparent 50%)
-            inset,
-          -10px -10px 20px 3px
-            color-mix(in srgb, map.get($colors, "theme-color"), transparent 50%)
-            inset,
-          0 0 20px color-mix(in srgb, var(--text-color), transparent 60%);
-        scale: 1.05;
       }
     }
   }
@@ -69,5 +111,15 @@
   &__pub-date,
   &__description {
     color: color-mix(in srgb, var(--text-color), transparent 10%);
+  }
+}
+
+// アニメーション
+@keyframes rotate-border {
+  0% {
+    rotate: 0;
+  }
+  100% {
+    rotate: 360deg;
   }
 }

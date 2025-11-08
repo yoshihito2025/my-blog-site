@@ -1,9 +1,11 @@
 @use "../../mixin" as *;
+@use "../../function" as *;
 
 .main {
   &__title {
     @include monospace-font;
     text-align: center;
+    margin-bottom: 1.5em;
   }
   &__entry-cards {
     @include entry-cards-layout();
