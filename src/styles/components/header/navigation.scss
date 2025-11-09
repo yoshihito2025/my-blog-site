@@ -67,7 +67,7 @@
   // SP
   @include media-max(md) {
     @include container-style();
-    background-color: var(--header__nav-bg-color);
+    background-color: var(--bg-color);
     position: absolute;
     right: 0;
     text-align: center;
@@ -124,7 +124,7 @@
   &__theme-menu {
     @include container-style();
     @include pop-easing;
-    background-color: var(--header__nav-bg-color);
+    background-color: var(--bg-color);
     list-style: none;
     opacity: 0.5;
     position: absolute;

@@ -2,6 +2,7 @@
 @use "../styles/variables" as *;
 @use "../styles/function" as *;
 @use "../styles/color-theme" as *;
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap");
 
 @mixin container-style() {
   --webkit-backdrop-filter: blur(5px);
@@ -37,7 +38,8 @@
 }
 
 @mixin monospace-font() {
-  font-family: Consolas, "Courier New", Courier, "Lucida Console", monospace;
+  font-family: "JetBrains Mono", Consolas, "Courier New", Courier,
+    "Lucida Console", monospace;
 }
 
 @mixin entry-cards-layout() {

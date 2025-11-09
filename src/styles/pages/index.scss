@@ -75,8 +75,7 @@
         color: var(--link-color);
         margin-bottom: map.get($font-sizes, "heading");
         padding-left: grid-8px(1);
-        text-shadow: 0 0 10px
-          color-mix(in srgb, var(--link-color), transparent 30%);
+        text-shadow: 0 0 20px color-mix(in srgb, var(--link-color), white 50%);
       }
       h3 {
         border-left: 5px solid var(--border-left-color);
